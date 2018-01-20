@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<head>
+  <title> ML-TTT </title>
+</head>
+<link rel = 'stylesheet' type = 'text/css' href = '{% static "ttt/style.css" %}' />
+
+<nav>
+  <ul>
+    <a href = 'https://github.com/simontanner/machine-learning' >
+
+      <img src="{% static 'ttt/images/qBR0s9O.jpg' %}" title="github" class = 'nav-logo'/>
+    </a>
+    <center>
+      <li>
+        Welcome to TicTacToe Man vs. Machine!
+      </li>
+    </center>
+  </ul>
+</nav>
+<body>
+
+  <center>
+    <form name="playGame" action='/playgame/'>
+      Play ML TTT!
+      <input type="submit" value="New Game"></input>
+    </form>
+
+  </center>
+</body>
+
+  <footer>
+    <div class = 'footer'>
+      Copyright 2017 by Sandy Cochrane, Cristina Iannone, Sophie Mann, Paula Muldoon, Simon Tanner <br> <br>
+      Makers Academy Remote April 2017 Cohort
+    </div>
+  </footer>

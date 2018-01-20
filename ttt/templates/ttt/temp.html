@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<head>
+  <title> ML-TTT </title>
+</head>
+<link rel = 'stylesheet' type = 'text/css' href = '{% static "ttt/style.css" %}' />
+
+<nav>
+  <ul>
+    <a href = 'https://github.com/simontanner/machine-learning' >
+      <img src="http://i.imgur.com/qBR0s9O.jpg" title="logo" class = 'nav-logo'/>
+    </a>
+    <li>
+      Welcome to Tictactoe!
+    </li>
+  </ul>
+</nav>
+<body>
+
+  <center>
+    <div class="board">
+      <div class="row">
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '0 0' class = 'square'>
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '0 1' class = 'square'>
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '0 2' class = 'square'>
+      </div>
+      <br>
+      <div class="row">
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '1 0' class = 'square'>
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '1 1' class = 'square'>
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '1 2' class = 'square'>
+      </div>
+      <br>
+      <div class="row">
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '2 0' class = 'square'>
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '2 1' class = 'square'>
+        <img src="http://i.imgur.com/gZm4Ckr.png" id = '2 2' class = 'square'>
+      </div>
+    </div>
+
+    <form name="Play ML TTT" >
+      <input type="submit" value="New Game">Play ML TTT!</input>
+    </form>
+
+    </center>
+  </body>
+
+  <footer>
+    <div class = 'footer'>
+      Copyright 2017 by Sandy Cochrane, Cristina Iannone, Sophie Mann, Paula Muldoon, Simon Tanner <br> <br>
+      Makers Academy Remote April 2017 Cohort
+    </div>
+  </footer>
+
+  <!DOCTYPE html>
+
+  {% load static %}
+
+  <head>
+    <title> ML-TTT </title>
+  </head>
+  <link rel = 'stylesheet' type = 'text/css' href = '{% static "ttt/style.css" %}' />
+
+  <nav>
+    <ul>
+      <li>
+        <center>
+          {{ new_player }} vs. Machine
+        </center>
+      </li>
+    </ul>
+  </nav>
+
+  <body>
+    <center>
+      <br/>
+      <table>
+      <tr>
+      <span class="spanFormat">
+        <form action="/newgame/" method="post" >
+          <input type="hidden" name="choice" value="1">
+          <input type="submit" value=""/>
+          {% csrf_token %}
+        </form>
+        </span>
+      <span class="spanFormat">
+      <form action="/newgame/" method="post">
+        <input type="hidden" name="choice" value="2"/>
+        <input type="submit" value=""/>
+        {% csrf_token %}
+      </form>
+      </span>
+      <span class="spanFormat">
+      <form action="/newgame/" method="post">
+        <input type="hidden" name="choice" value="3"/>
+        <input type="submit" value=""/>
+        {% csrf_token %}
+      </form>
+    </span>
+  </tr>
+  <tr>
+    <span class="spanFormat">
+      <form action="/newgame/" method="post" >
+        <input type="hidden" name="choice" value="4">
+        <input type="submit" value=""/>
+        {% csrf_token %}
+      </form>
+    </span>
+    <span class="spanFormat">
+
+    <form action="/newgame/" method="post">
+      <input type="hidden" name="choice" value="5"/>
+      <input type="submit" value=""/>
+      {% csrf_token %}
+    </form>
+    </span>
+    <span class="spanFormat">
+
+    <form action="/newgame/" method="post">
+      <input type="hidden" name="choice" value="6"/>
+      <input type="submit" value=""/>
+      {% csrf_token %}
+    </form>
+    </span>
+  </tr>
+  </table>
+
+
+
+      Choice = {{ choice }}
+    </center>
+  </body>

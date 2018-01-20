@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<head>
+  <title> ML-TTT </title>
+</head>
+<link rel = 'stylesheet' type = 'text/css' href = '{% static "ttt/style.css" %}' />
+<nav>
+  <ul>
+    <li>
+      <center>
+        {{ new_player }} vs. Machine
+      </center>
+    </li>
+  </ul>
+</nav>
+
+<body>
+  <center>
+    <br/>
+    <table>
+    <tr>
+      <td>
+        <form action="/newgame/" method="post" >
+          <input type="hidden" name="choice" value="1">
+          <input type="submit" value={{ choice_1 }} />
+          {% csrf_token %}
+        </form>
+      </td>
+      <td>
+        <form action="/newgame/" method="post">
+          <input type="hidden" name="choice" value="2"/>
+          <input type="submit" value={{ choice_2 }} />
+          {% csrf_token %}
+        </form>
+      </td>
+      <td>
+        <form action="/newgame/" method="post">
+          <input type="hidden" name="choice" value="3"/>
+          <input type="submit" value={{ choice_3 }} />
+          {% csrf_token %}
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <form action="/newgame/" method="post" class="button2">
+          <input type="hidden" name="choice" value="4">
+          <input type="submit" value={{ choice_4 }} />
+          {% csrf_token %}
+        </form>
+      </td>
+      <td>
+        <form action="/newgame/" method="post">
+          <input type="hidden" name="choice" value="5"/>
+          <input type="submit" value={{ choice_5 }} />
+          {% csrf_token %}
+        </form>
+      </td>
+      <td>
+        <form action="/newgame/" method="post">
+          <input type="hidden" name="choice" value="6"/>
+          <input type="submit" value={{ choice_6 }} />
+          {% csrf_token %}
+        </form>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <form action="/newgame/" method="post" class="button2">
+            <input type="hidden" name="choice" value="7">
+            <input type="submit" value={{ choice_7 }} />
+            {% csrf_token %}
+          </form>
+        </td>
+        <td>
+          <form action="/newgame/" method="post">
+            <input type="hidden" name="choice" value="8"/>
+            <input type="submit" value={{ choice_8 }} />
+            {% csrf_token %}
+          </form>
+        </td>
+        <td>
+          <form action="/newgame/" method="post">
+            <input type="hidden" name="choice" value="9"/>
+            <input type="submit" value= {{ choice_9 }} />
+            {% csrf_token %}
+          </form>
+          </td>
+        </tr>
+  </table>
+    {{ current_player }} it's your go
+    <br/> {{ message }}
+    <form action="/newgame/" method="post">
+      <input type="hidden" name="player_name" value= {{ new_player }} />
+      <input type="submit" value="New Game"/>
+      {% csrf_token %}
+    </form>
+  </center>
+  <div id="currentPlayer" value={{ current_player }} />
+</body>
+
+<script>
+var whoseTurn = document.getElementById("currentPlayer").attributes.value.value;
+console.log(whoseTurn);
+typeof(whoseTurn)
+if (whoseTurn === "machine_player") {
+  window.location = window.location
+}
+</script>
+<script>
+
+</script>
