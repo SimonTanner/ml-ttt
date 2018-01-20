@@ -14,12 +14,16 @@ def play_game(request):
 def new_game(request):
     global player_name, game
     if request.POST.get('player_name', ''):
-        player_name = request.POST.get('player_name', '')
-        game = Game(player_name)
+        request.session['player_name'] = request.POST.get('player_name', '')
+        player_name = request.session['player_name']
+        request.session['game'] = Game(player_name)
+        game = request.session['game']
         if game.whose_turn == game.machine_player:
             game.take_turn()
         return render(request, 'ttt/new_game.html', game.render_data)
     else:
+        game = request.session['game']
+        player_name = request.session['player_name']
         if game.whose_turn == game.player_name:
             choice = request.POST.get('choice', '')
             time.sleep(2)
