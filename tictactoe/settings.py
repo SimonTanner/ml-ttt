@@ -25,7 +25,8 @@ SECRET_KEY = 'e%$@e1i2s94!wg-55%mp+f90z53y(_f%mr*fxt-@(ryih)_$*@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ml-ttt.herokuapp.com',
+]
 
 
 # Application definition
