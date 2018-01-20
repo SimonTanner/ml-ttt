@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_SAVE_EVERY REQUEST = True
+
 ROOT_URLCONF = 'tictactoe.urls'
 
 TEMPLATES = [
