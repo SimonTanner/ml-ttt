@@ -1,1 +1,1 @@
-web: tictactoe.wsgi --log-file -
+web: 
