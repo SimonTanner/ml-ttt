@@ -55,7 +55,7 @@ MIDDLEWARE = [
 
 #SESSION_SAVE_EVERY_REQUEST = True
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+#SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 ROOT_URLCONF = 'tictactoe.urls'
 
