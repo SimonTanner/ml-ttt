@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'tictactoe.wsgi.application'
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.locmem.LocMemCache',
+        'BACKEND': 'django.core.backends.cache.locmem.LocMemCache',
     }
 }
 
