@@ -26,6 +26,7 @@ SECRET_KEY = 'e%$@e1i2s94!wg-55%mp+f90z53y(_f%mr*fxt-@(ryih)_$*@'
 DEBUG = True
 
 ALLOWED_HOSTS = ['ml-ttt.herokuapp.com',
+    'localhost',
 ]
 
 
@@ -52,7 +53,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SESSION_SAVE_EVERY_REQUEST = True
+#SESSION_SAVE_EVERY_REQUEST = True
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 ROOT_URLCONF = 'tictactoe.urls'
 
@@ -73,6 +76,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'tictactoe.wsgi.application'
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.locmemLocMemCache',
+    }
+}
 
 
 # Database
