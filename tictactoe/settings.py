@@ -55,7 +55,7 @@ MIDDLEWARE = [
 
 #SESSION_SAVE_EVERY_REQUEST = True
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+#SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 ROOT_URLCONF = 'tictactoe.urls'
 
@@ -78,11 +78,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tictactoe.wsgi.application'
 
 
-CACHES = {
+'''CACHES = {
     'default': {
-        'BACKEND': 'django.core.backends.cache.locmem.LocMemCache',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
-}
+}'''
 
 
 # Database
