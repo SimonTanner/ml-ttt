@@ -99,7 +99,7 @@ def get_cache():
                     'connect_timeout': 2000,
                     'send_timeout': 750 * 1000,
                     'receive_timeout': 750 * 1000,
-                    '_poll_timeout': 2000
+                    '_poll_timeout': 2000,
                     'ketama': True,
                     'remove_failed': 1,
                     'retry_timeout': 2,
