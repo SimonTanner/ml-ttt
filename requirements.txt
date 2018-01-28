@@ -1,5 +1,6 @@
 Django==1.11.3
 gunicorn==19.7.1
+pylibmc==1.5.2
 pytz==2017.2
 selenium==3.4.3
 splinter==0.7.7
