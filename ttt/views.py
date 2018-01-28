@@ -21,23 +21,26 @@ def new_game(request):
         game = Game(player_name)
         if game.whose_turn == game.machine_player:
             game.take_turn()
+        cache.set('game', game)
         return render(request, 'ttt/new_game.html', game.render_data)
-        cache.set('game', pickle.dumps(game))
+
     else:
-        game = pickle.loads(cache.get('game'))
         player_name = cache.get('player_name')
+        game = cache.get('game')
         if game.whose_turn == game.player_name:
             choice = request.POST.get('choice', '')
             time.sleep(1)
             game.take_turn(int(choice))
+            cache.set('game', game)
             return render(request, 'ttt/new_game.html', game.render_data
             )
         else:
             game.take_turn()
             time.sleep(1)
+            cache.set('game', game)
             return render(request, 'ttt/new_game.html', game.render_data
             )
-        cache.set('game', pickle.dumps(game))
+
 
 def wtf_page(request):
     if cache.get('board', request.user.id):
