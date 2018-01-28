@@ -40,12 +40,12 @@ def new_game(request):
         cache.set('game', pickle.dumps(game))
 
 def wtf_page(request):
-    if cache.get('board'):
-        board = cache.get('board')
+    if cache.get('board', request.user.id):
+        board = cache.get('board', request.user.id)
         board.choose_space(str(random.choice(board.free_spaces)), 'X')
-        cache.set('board', board)
+        cache.set('board', board, request.user.id)
     else:
         board = TicTacToe()
-        cache.set('board', board)
+        cache.set('board', board, request.user.id)
     data = board.free_spaces
     return render(request, 'ttt/wtf.html', {'data': data})
