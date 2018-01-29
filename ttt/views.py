@@ -42,13 +42,16 @@ def new_game(request):
             )
 
 
-def wtf_page(request):
+def cache_test_page(request):
     if cache.get('board', request.user.id):
         board = cache.get('board', request.user.id)
+        if len(board.free_spaces) <= 0:
+            board = TicTacToe()
+            cache.set('board', board, request.user.id)
         board.choose_space(str(random.choice(board.free_spaces)), 'X')
         cache.set('board', board, request.user.id)
     else:
         board = TicTacToe()
         cache.set('board', board, request.user.id)
     data = board.free_spaces
-    return render(request, 'ttt/wtf.html', {'data': data})
+    return render(request, 'ttt/cachetest.html', {'data': data})
