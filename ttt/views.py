@@ -54,4 +54,4 @@ def cache_test_page(request):
         board = TicTacToe()
         cache.set('board', board, request.user.id)
     data = board.free_spaces
-    return render(request, 'ttt/cachetest.html', {'data': data})
+    return render(request, 'ttt/cachetest.html', {'data': data, 'user_id': request.user.id})

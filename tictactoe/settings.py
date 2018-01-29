@@ -89,21 +89,21 @@ def get_cache():
                 'TIMEOUT': None,
                 'LOCATION': servers,
                 'OPTIONS': {
-                'binary': True,
-                'username': username,
-                'password': password,
-                'behaviours': {
-                    'no_block': True,
-                    'tcp_nodelay': True,
-                    'tcp_keepalive': True,
-                    'connect_timeout': 2000,
-                    'send_timeout': 750 * 1000,
-                    'receive_timeout': 750 * 1000,
-                    '_poll_timeout': 2000,
-                    'ketama': True,
-                    'remove_failed': 1,
-                    'retry_timeout': 2,
-                    'dead_timeout': 30,
+                    'binary': True,
+                    'username': username,
+                    'password': password,
+                    'behaviors': {
+                        'no_block': True,
+                        'tcp_nodelay': True,
+                        'tcp_keepalive': True,
+                        'connect_timeout': 2000,
+                        'send_timeout': 750 * 1000,
+                        'receive_timeout': 750 * 1000,
+                        '_poll_timeout': 2000,
+                        'ketama': True,
+                        'remove_failed': 1,
+                        'retry_timeout': 2,
+                        'dead_timeout': 30,
                     }
                 }
             }
