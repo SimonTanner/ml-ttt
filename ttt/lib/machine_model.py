@@ -1,10 +1,5 @@
 import copy, random, json, os
 
-options = []
-
-for i in range(1, 10):
-    options.append(i)
-
 class MachinePlayer():
 
     global states
