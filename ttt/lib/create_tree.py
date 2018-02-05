@@ -29,9 +29,20 @@ class CreateTreeData():
         self.tree = tree
 
     def populate_db(self):
-        for path, data in self.tree.items():
-            db_path = MachinePath(id=path)
-            db_path.save()
-            for options in data:
-                db_choice = MachineChoice(option=str(options[0]), value = options[1], path = db_path)
-                db_choice.save()
+        count = 0
+        while count < 10:
+            for path, data in self.tree.items():
+                try:
+                    MachinePath.ojects.get(id=path)
+                except Exception:
+                    db_path = MachinePath(id=path)
+                    db_path.save()
+                for options in data:
+                    try:
+                        current_path = MachineChoice.objects.filter(path=path)
+                        current_path.get(option=str(options[0]))
+                    except Exception:
+                        db_choice = MachineChoice(option=str(options[0]), value = options[1], path = db_path)
+                        db_choice.save()
+                count +=1
+                print(count)

@@ -6,5 +6,5 @@ class MachinePath(models.Model):
 
 class MachineChoice(models.Model):
     option = models.CharField(max_length=2)
-    value = models.IntegerField()
+    value = models.FloatField()
     path = models.ForeignKey(MachinePath, on_delete= models.CASCADE)
