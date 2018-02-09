@@ -31,12 +31,9 @@ class MachinePlayer():
 
 
     def update_options_and_states(self, options, machine_choice=None):
-        print('path : ' + str(10 - len(self.path)) + ' options: ' + str(len(options)))
         chosen_option = self.check_options(options)
-        print('chosen option = ' + str(chosen_option))
         if chosen_option == None:
             chosen_option = machine_choice
-            print('Mac choice = ' + str(machine_choice))
         if chosen_option:
             self.path += str(chosen_option)
             path = self.db.create_path_entry(self.path)
@@ -44,7 +41,6 @@ class MachinePlayer():
             self.get_states(self.path)
             states = self.states
             [states.remove(option) for option in states if option[0] == chosen_option]
-            print('states = ' + str(states))
             self.states = states
             for option in self.options:
                 self.db.create_choice_entry(path, str(option))
@@ -53,7 +49,6 @@ class MachinePlayer():
         self.update_options_and_states(options)
         self.get_states(self.path)
         states = self.states
-        print(states)
         state_options = list(map(lambda x: x[0], states))
         states = [i for i in states if i[0] in options]
         max_chance = max(states, key=lambda x: x[1])[1]
@@ -67,9 +62,6 @@ class MachinePlayer():
                     continue
 
         choice = random.choice(choices)
-        print('Machine choice = ' + str(choice))
-        #self.options.remove(choice)
-        #self.path = self.path + str(choice)
         self.update_options_and_states(self.options, choice)
 
         return choice
