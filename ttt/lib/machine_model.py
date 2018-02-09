@@ -1,4 +1,5 @@
 import copy, random, json, os
+from ttt.lib.db_tree_accessor import DbAccessor
 
 class MachinePlayer():
 
@@ -10,49 +11,49 @@ class MachinePlayer():
         self.start = '0'
         self.path = '0'
         self.options = list(range(1, 10))
-        self.dir_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../data/tree_data.json')
-        self.create_data()
+        self.db = DbAccessor()
 
-
-    def create_data(self):
-        if os.path.isfile(self.dir_path):
-            with open(self.dir_path, 'r') as data:
-                tree = json.load(data)
-                self.tree = json.loads(tree)
-                data.close()
-        else:
-            self.tree = {}
-            self.create_tree()
-            self.grow_tree(self.start, self.states)
-
-
-    def create_tree(self):
-        self.tree[self.start] = self.states[:]
-
-    def grow_tree(self, start, states):
-        tree = self.tree
-
-        for i in range(0, len(states)):
-            new_states = states[:]
-            key = start + str(new_states.pop(i)[0])
-            if len(new_states) > 0:
-                tree[key] = copy.deepcopy(new_states)
-
-            self.grow_tree(key, new_states)
-
-        self.tree = tree
+    def get_states(self, path):
+        states = self.db.get_options(path)
+        if states != None:
+            db_states = []
+            for option in states:
+                db_states.append([int(option.option), option.value])
+                self.states = db_states
 
     def check_options(self, options):
-        if 10 - len(self.path) != len(options):
-            path = [i for i in self.options if i not in options]
-            path = path[0]
-            self.path += str(path)
-            self.options.remove(path)
+        chosen_option = [i for i in self.options if i not in options]
+        if len(chosen_option) > 0:
+            chosen_option = chosen_option[0]
+        else:
+            chosen_option = None
+        return chosen_option
+
+
+    def update_options_and_states(self, options, machine_choice=None):
+        print('path : ' + str(10 - len(self.path)) + ' options: ' + str(len(options)))
+        chosen_option = self.check_options(options)
+        print('chosen option = ' + str(chosen_option))
+        if chosen_option == None:
+            chosen_option = machine_choice
+            print('Mac choice = ' + str(machine_choice))
+        if chosen_option:
+            self.path += str(chosen_option)
+            path = self.db.create_path_entry(self.path)
+            self.options.remove(chosen_option)
+            self.get_states(self.path)
+            states = self.states
+            [states.remove(option) for option in states if option[0] == chosen_option]
+            print('states = ' + str(states))
+            self.states = states
+            for option in self.options:
+                self.db.create_choice_entry(path, str(option))
 
     def choose_option(self, options):
-        self.check_options(options)
-
-        states = self.tree[self.path]
+        self.update_options_and_states(options)
+        self.get_states(self.path)
+        states = self.states
+        print(states)
         state_options = list(map(lambda x: x[0], states))
         states = [i for i in states if i[0] in options]
         max_chance = max(states, key=lambda x: x[1])[1]
@@ -66,16 +67,12 @@ class MachinePlayer():
                     continue
 
         choice = random.choice(choices)
-        self.options.remove(choice)
-        self.path = self.path + str(choice)
+        print('Machine choice = ' + str(choice))
+        #self.options.remove(choice)
+        #self.path = self.path + str(choice)
+        self.update_options_and_states(self.options, choice)
 
         return choice
-
-    def close_tree_data(self):
-        with open(self.dir_path, 'w') as data:
-            tree = json.dumps(self.tree)
-            json.dump(tree, data)
-            data.close()
 
     def game_won(self):
         for i in range(0, len(self.path)-1):

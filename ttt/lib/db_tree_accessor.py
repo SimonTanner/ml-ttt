@@ -28,8 +28,11 @@ class DbAccessor():
         if self.get_path(path) == None:
             new_path = MachinePath(id=path)
             new_path.save()
+        else:
+            new_path = self.get_path(path)
+        return new_path
 
-    def create_choice_entry(self, path, choice, value):
+    def create_choice_entry(self, path, choice, value=1.0/9.0):
         if self.get_options(path) == None:
             new_option = MachineChoice(option=choice, value=value, path=path)
             new_option.save()
