@@ -1,6 +1,8 @@
 from ttt.models import *
 
 class DbAccessor():
+    def __init__(self):
+        self.create_first_option_set()
 
     def get_path(self, path):
         try:
@@ -47,3 +49,9 @@ class DbAccessor():
         choice = self.get_choice(path, options, choice)
         choice.value = value
         choice.save()
+
+    def create_first_option_set(self):
+        states = list(range(1, 10))
+        path = self.create_path_entry('0')
+        for option in states:
+            self.create_choice_entry(path, option)

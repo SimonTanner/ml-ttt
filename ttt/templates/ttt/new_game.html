@@ -99,13 +99,17 @@
     </form>
   </center>
   <div id="currentPlayer" value={{ current_player }} />
+  <div id="gameOver" value={{ game_over }} />
 </body>
 
 <script>
 var whoseTurn = document.getElementById("currentPlayer").attributes.value.value;
-console.log(whoseTurn);
-typeof(whoseTurn)
+var gameOver = document.getElementById("gameOver").attributes.value.value;
+
 if (whoseTurn === "machine_player") {
+  window.location = window.location
+}
+else if (gameOver === "True") {
   window.location = window.location
 }
 </script>

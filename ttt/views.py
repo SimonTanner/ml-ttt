@@ -5,7 +5,7 @@ from ttt.lib.game import Game
 from django.core.cache import cache
 from ttt.lib.ttt_board import TicTacToe
 
-import importlib.machinery, os, time, pickle, random
+import importlib.machinery, os, time, random
 
 def index(request):
     return render(request, 'ttt/index.html')
@@ -27,20 +27,24 @@ def new_game(request):
     else:
         player_name = cache.get('player_name')
         game = cache.get('game')
-        if game.whose_turn == game.player_name:
-            choice = request.POST.get('choice', '')
-            time.sleep(1)
-            game.take_turn(int(choice))
+        if game.game_over == True:
+            game.update_machine_player()
             cache.set('game', game)
+            game.render_data['game_over'] = False
             return render(request, 'ttt/new_game.html', game.render_data
             )
         else:
-            game.take_turn()
-            time.sleep(1)
-            cache.set('game', game)
-            return render(request, 'ttt/new_game.html', game.render_data
-            )
-
+            if game.whose_turn == game.player_name:
+                choice = request.POST.get('choice', '')
+                game.take_turn(int(choice))
+                cache.set('game', game)
+                return render(request, 'ttt/new_game.html', game.render_data
+                )
+            else:
+                game.take_turn()
+                cache.set('game', game)
+                return render(request, 'ttt/new_game.html', game.render_data
+                )
 
 def cache_test_page(request):
     if cache.get('board', request.user.id):

@@ -66,17 +66,20 @@ class MachinePlayer():
 
         return choice
 
-    def game_won(self):
-        for i in range(0, len(self.path)-1):
-            index = int(i)
-            choice = int(self.path[index + 1])
-            index_2 = list(map(lambda x: x[0], self.tree[self.path[0:(index + 1)]])).index(choice)
-            branch = (self.tree[self.path[0:(index + 1)]])
-            self.tree[self.path[0:(index + 1)]][index_2][1] = 1.0 / (len(self.path) - i) + self.tree[self.path[0:(index + 1)]][index_2][1]
-            total = sum(list(map(lambda x: x[1], self.tree[self.path[0:(index + 1)]])))
+    def game_won(self, options=None):
+        if options:
+            self.update_options_and_states(options)
 
-            for v in branch:
-                v[1] = v[1] / total
-
-        self.close_tree_data()
-        self.path = '0'
+        for index in range(0, len(self.path) - 1):
+            choice = str(self.path[index + 1])
+            current_path = self.path[0:(index + 1)]
+            print(current_path)
+            addition = 1.0 / (9.0 - index)
+            print(self.db.get_choice(current_path, self.db.get_options(current_path), choice))
+            current_value = self.db.get_choice(current_path, self.db.get_options(current_path), choice).value + addition
+            self.db.update_choice_entry(current_path, choice, current_value)
+            options = self.db.get_options(current_path)
+            total = sum(list(map(lambda option: option.value, options)))
+            for option in options:
+                new_value = option.value / total
+                self.db.update_choice_entry(current_path, option.option, new_value)

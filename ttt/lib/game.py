@@ -6,6 +6,8 @@ class Game():
 
     def __init__(self, player_name='Human', x_or_o='X'):
         chars = {'X':'0', '0':'X'}
+        self.game_over = False
+        self.db_updated = False
         self.player_name = player_name
         machine_player_char = chars[x_or_o]
         self.board = TicTacToe()
@@ -24,9 +26,12 @@ class Game():
             num = str(i)
             self.render_data['choice_' + num] = self.board.board[num]
         self.render_data['new_player'] = self.player_name
-        self.render_data['current_player'] = self.whose_turn
+        if self.game_over == True:
+            self.render_data['current_player'] = None
+            self.render_data['game_over'] = True
+        else:
+            self.render_data['current_player'] = self.whose_turn
         self.render_data['message'] = message
-
 
 
     def choose_space(self, choice):
@@ -40,18 +45,28 @@ class Game():
 
     def take_turn(self, choice=None):
         msg = None
-        if self.whose_turn == 'machine_player':
-            choice = self.machine_player.choose_option(self.board.free_spaces)
-            self.choose_space(choice)
-            self.whose_turn = self.player_switch[self.whose_turn]
-        elif self.choose_space(choice):
-            msg = 'Sorry that space is already taken'
+        if self.game_over != True:
+            if self.whose_turn == 'machine_player':
+                choice = self.machine_player.choose_option(self.board.free_spaces)
+                self.choose_space(choice)
+                self.whose_turn = self.player_switch[self.whose_turn]
+            elif self.choose_space(choice):
+                msg = 'Sorry that space is already taken'
+            else:
+                self.choose_space(choice)
+                self.whose_turn = self.player_switch[self.whose_turn]
+            if self.board.win == True:
+                self.game_over = True
+                msg = self.win_check()
+            elif len(self.board.free_spaces) < 1:
+                self.game_over = True
+                msg = 'DRAW, GAME OVER'
         else:
-            self.choose_space(choice)
-            self.whose_turn = self.player_switch[self.whose_turn]
-        if self.board.win == True:
-            msg = self.win_check()
-            self.machine_player.game_won()
+            msg = 'GAME OVER'
         self.create_render_data(msg)
-        #self.render_data['message'] = msg
         return msg
+
+    def update_machine_player(self):
+        if self.db_updated == False:
+            self.machine_player.game_won(self.board.free_spaces)
+            self.db_updated = True
