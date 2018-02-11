@@ -9,7 +9,7 @@ DATABASES['default'].update(db_from_env)
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print('base dir = ' + BASE_DIR)
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
