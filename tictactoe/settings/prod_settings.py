@@ -3,7 +3,7 @@ from tictactoe.settings.base import *
 
 db_from_env = dj_database_url.config()
 
-DEBUG = False
+DEBUG = True
 
 DATABASES['default'].update(db_from_env)
 
