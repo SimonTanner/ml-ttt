@@ -45,9 +45,9 @@
     </tr>
     <tr>
       <td>
-        <form action="/newgame/" method="post" class="button2">
+        <form action="/newgame/" method="post" >
           <input type="hidden" name="choice" value="4">
-          <input type="submit" value={{ choice_4 }} />
+          <input type="submit" value= {{ choice_4 }} />
           {% csrf_token %}
         </form>
       </td>
@@ -68,7 +68,7 @@
       </tr>
       <tr>
         <td>
-          <form action="/newgame/" method="post" class="button2">
+          <form action="/newgame/" method="post" >
             <input type="hidden" name="choice" value="7">
             <input type="submit" value={{ choice_7 }} />
             {% csrf_token %}
@@ -90,11 +90,16 @@
           </td>
         </tr>
   </table>
-    {{ current_player }} it's your go
-    <br/> {{ message }}
+    {% if current_player %}
+      {{ current_player }} it's your go
+    {% endif %}
+    <br/>
+    {% if message %}
+      {{ message }}
+    {% endif %}
     <form action="/newgame/" method="post">
       <input type="hidden" name="player_name" value= {{ new_player }} />
-      <input type="submit" value="New Game"/>
+      <input type="submit" value="New Game" class='button'/>
       {% csrf_token %}
     </form>
   </center>
