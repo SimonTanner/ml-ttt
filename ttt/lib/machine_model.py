@@ -5,13 +5,14 @@ class MachinePlayer():
 
     global states
 
-    def __init__(self):
+    def __init__(self, who_goes_first):
         self.states = [[1, 1.0 / 9.0], [2, 1.0 / 9.0], [3, 1.0 / 9.0], [4, 1.0 / 9.0], [5, 1.0 / 9.0], [6, 1.0 / 9.0], [7, 1.0 / 9.0], [8, 1.0 / 9.0], [9, 1.0 / 9.0]]
         self.counter = 0
         self.start = '0'
         self.path = '0'
         self.options = list(range(1, 10))
         self.db = DbAccessor()
+        self.who_goes_first = who_goes_first
 
     def get_states(self, path):
         states = self.db.get_options(path)
@@ -66,15 +67,28 @@ class MachinePlayer():
 
         return choice
 
-    def game_won(self, options=None):
+    def game_won(self, winner, options=None):
         if options:
             self.update_options_and_states(options)
+        if winner  == 'machine_player':
+            if self.who_goes_first == 'machine_player':
+                addition_check = 0
+            else:
+                addition_check = 1
+        else:
+            if self.who_goes_first == 'machine_player':
+                addition_check = 1
+            else:
+                addition_check = 0
 
         for index in range(0, len(self.path) - 1):
             choice = str(self.path[index + 1])
             current_path = self.path[0:(index + 1)]
             print(current_path)
-            addition = 1.0 / (9.0 - index)
+            if len(current_path) % 2 == addition_check:
+                addition = 1.0 / (9.0 - index)
+            else:
+                addition = 0.0
             print(self.db.get_choice(current_path, self.db.get_options(current_path), choice))
             current_value = self.db.get_choice(current_path, self.db.get_options(current_path), choice).value + addition
             self.db.update_choice_entry(current_path, choice, current_value)

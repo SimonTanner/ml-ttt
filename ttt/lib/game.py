@@ -11,10 +11,9 @@ class Game():
         self.player_name = player_name
         machine_player_char = chars[x_or_o]
         self.board = TicTacToe()
-        self.machine_player = MachinePlayer()
         self.players = {player_name : x_or_o, 'machine_player' : machine_player_char}
         self.player_switch = {player_name : 'machine_player', 'machine_player' : player_name}
-        self.who_goes_first()
+        self.machine_player = MachinePlayer(self.who_goes_first())
         self.create_render_data()
 
     def who_goes_first(self):
@@ -40,6 +39,7 @@ class Game():
     def win_check(self):
         winner_char = self.board.winning_char
         winner = [key for key, value in self.players.items() if value == winner_char][0]
+        self.winner = winner
         msg = '%s won!!!' % str(winner)
         return msg
 
@@ -68,5 +68,5 @@ class Game():
 
     def update_machine_player(self):
         if self.db_updated == False:
-            self.machine_player.game_won(self.board.free_spaces)
+            self.machine_player.game_won(self.winner, self.board.free_spaces)
             self.db_updated = True
