@@ -1,5 +1,5 @@
 import unittest
-from lib.ttt_board import TicTacToe
+from ttt.lib.ttt_board import TicTacToe
 
 class TTTTest(unittest.TestCase):
 

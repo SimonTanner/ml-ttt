@@ -29,3 +29,10 @@ To play the current version of ML-TTT please click [here](https://ml-ttt.herokua
 Implementing a way of training the MP through the website so users can compare the MP when it hasn't played many games compared to when it has.
 
 Testing different models to explore how changing values, such as how much you add to value associated with an option after a win, affects how well that player performs and how quickly it learns.
+
+## Testing
+
+To run the functional tests you have to be in the root folder and simply enter python manage.py test into the command shell.
+
+To run the unit tests again from the root folder enter python manage.py test --pattern="*_test.py"
+This will run all tests with _test.py in their name.

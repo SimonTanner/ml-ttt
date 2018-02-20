@@ -1,7 +1,7 @@
 import unittest
-from lib.game import Game
-from lib.ttt_board import TicTacToe
-from lib.machine_model import MachinePlayer
+from ttt.lib.game import Game
+from ttt.lib.ttt_board import TicTacToe
+from ttt.lib.machine_model import MachinePlayer
 
 class GameTest(unittest.TestCase):
 
