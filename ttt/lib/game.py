@@ -15,6 +15,7 @@ class Game():
         self.player_switch = {player_name : 'machine_player', 'machine_player' : player_name}
         self.machine_player = MachinePlayer(self.who_goes_first())
         self.create_render_data()
+        self.winner = None
 
     def who_goes_first(self):
         self.whose_turn = random.choice(list(self.players.keys()))
@@ -38,9 +39,8 @@ class Game():
 
     def win_check(self):
         winner_char = self.board.winning_char
-        winner = [key for key, value in self.players.items() if value == winner_char][0]
-        self.winner = winner
-        msg = '%s won!!!' % str(winner)
+        self.winner = [key for key, value in self.players.items() if value == winner_char][0]
+        msg = '%s won!!!' % str(self.winner)
         return msg
 
     def take_turn(self, choice=None):

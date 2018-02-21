@@ -67,20 +67,7 @@ class MachinePlayer():
 
         return choice
 
-    def game_won(self, winner, options=None):
-        if options:
-            self.update_options_and_states(options)
-        if winner  == 'machine_player':
-            if self.who_goes_first == 'machine_player':
-                addition_check = 0
-            else:
-                addition_check = 1
-        else:
-            if self.who_goes_first == 'machine_player':
-                addition_check = 1
-            else:
-                addition_check = 0
-
+    def win_db_update(self, addition_check):
         for index in range(0, len(self.path) - 1):
             choice = str(self.path[index + 1])
             current_path = self.path[0:(index + 1)]
@@ -97,3 +84,21 @@ class MachinePlayer():
             for option in options:
                 new_value = option.value / total
                 self.db.update_choice_entry(current_path, option.option, new_value)
+
+    def game_won(self, winner, options=None):
+        if options:
+            self.update_options_and_states(options)
+
+        if winner  == 'machine_player':
+            if self.who_goes_first == 'machine_player':
+                addition_check = 0
+            else:
+                addition_check = 1
+        else:
+            if self.who_goes_first == 'machine_player':
+                addition_check = 1
+            else:
+                addition_check = 0
+
+        if winner != None:
+            self.win_db_update(addition_check)
