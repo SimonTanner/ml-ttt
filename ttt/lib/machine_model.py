@@ -1,5 +1,6 @@
 import copy, random, json, os
 from ttt.lib.db_tree_accessor import DbAccessor
+from ttt.models import *
 
 class MachinePlayer():
 
@@ -55,7 +56,7 @@ class MachinePlayer():
         max_chance = max(states, key=lambda x: x[1])[1]
         choices = []
         for i in states:
-            if i[1] / max_chance < 10:
+            if i[1] / max_chance >= 0.5:
                 try:
                     options.index(i[0])
                     choices.append(i[0])
@@ -75,14 +76,16 @@ class MachinePlayer():
             if len(current_path) % 2 == addition_check:
                 addition = 1.0 / (9.0 - index)
             else:
-                addition = 0.0
+                addition = -0.5 / (9.0)
             print(self.db.get_choice(current_path, self.db.get_options(current_path), choice))
             current_value = self.db.get_choice(current_path, self.db.get_options(current_path), choice).value + addition
             self.db.update_choice_entry(current_path, choice, current_value)
             options = self.db.get_options(current_path)
             total = sum(list(map(lambda option: option.value, options)))
+            print("total = %s" % total)
             for option in options:
                 new_value = option.value / total
+                print("option: " + option.option + " new val: " + str(new_value))
                 self.db.update_choice_entry(current_path, option.option, new_value)
 
     def game_won(self, winner, options=None):
@@ -91,14 +94,18 @@ class MachinePlayer():
 
         if winner  == 'machine_player':
             if self.who_goes_first == 'machine_player':
-                addition_check = 0
-            else:
                 addition_check = 1
+            else:
+                addition_check = 0
         else:
             if self.who_goes_first == 'machine_player':
-                addition_check = 1
-            else:
                 addition_check = 0
+            else:
+                addition_check = 1
+
+        print("Winner is %s, and %s went first" % (winner, self.who_goes_first))
 
         if winner != None:
             self.win_db_update(addition_check)
+
+        #MachinePath.objects.all().delete()

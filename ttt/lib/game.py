@@ -19,6 +19,7 @@ class Game():
 
     def who_goes_first(self):
         self.whose_turn = random.choice(list(self.players.keys()))
+        return self.whose_turn
 
     def create_render_data(self, message='Play'):
         self.render_data = {}

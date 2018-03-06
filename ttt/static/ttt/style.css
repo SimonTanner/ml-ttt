@@ -21,6 +21,7 @@ nav ul li {
   font-weight: bold;
   font-size: large;
   text-align: center;
+  bottom: 100;
   padding: 12px 12px 12px 12px;
   line-height: 40px;
 }
@@ -42,7 +43,7 @@ p {
   margin: 0;
   overflow: hidden;
   float: left;
-  padding: 12px 8px 12px 8px;
+  padding: 12px 12px 12px 12px;
   line-height: 40px;
   display: block;
   color: black;
@@ -55,11 +56,12 @@ p {
   margin: 0;
   overflow: hidden;
   float: right;
-  padding: 12px 8px 12px 8px;
+  padding: 0px 12px;
   line-height: 40px;
   display: block;
   color: black;
   text-align: right;
+  vertical-align: inherit;
   text-decoration: none;
 }
 
@@ -85,7 +87,7 @@ p {
   text-align: center;
   font-family: 'Neue Helvetica', Helvetica;
   background-color: #F4F115;
-  height: 40px;
+  height: 30px;
   width: 100%;
 }
 
